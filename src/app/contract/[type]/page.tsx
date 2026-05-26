@@ -216,8 +216,68 @@ function ContractInner() {
         setClientInitials(reconstructJSX(data.clientInitials, true));
         if (data.clientInitialsDate) setClientInitialsDate(data.clientInitialsDate);
       }
+
+      if (data.editedFields) {
+        const ef = data.editedFields;
+        if (ef.clientJurisdiction) setClientJurisdiction(ef.clientJurisdiction);
+        if (ef.contractorName) setContractorName(ef.contractorName);
+        if (ef.companyRegisteredAddress) setCompanyRegisteredAddress(ef.companyRegisteredAddress);
+        if (ef.contractDay) setContractDay(ef.contractDay);
+        if (ef.contractMonth) setContractMonth(ef.contractMonth);
+        if (ef.contractYear) setContractYear(ef.contractYear);
+        if (ef.contractorCnic) setContractorCnic(ef.contractorCnic);
+        if (ef.contractorAddress) setContractorAddress(ef.contractorAddress);
+        if (ef.projectName) setProjectName(ef.projectName);
+        if (ef.repositoryName) setRepositoryName(ef.repositoryName);
+        if (ef.techStack) setTechStack(ef.techStack);
+        if (ef.phase1Deadline) setPhase1Deadline(ef.phase1Deadline);
+        if (ef.commChannel) setCommChannel(ef.commChannel);
+        if (ef.workingHours) setWorkingHours(ef.workingHours);
+      }
     } catch (e) {
       console.warn("Failed to load saved signatures:", e);
+    }
+  };
+
+  const saveFieldToDb = async (fieldName: string, value: string) => {
+    switch (fieldName) {
+      case "clientJurisdiction": setClientJurisdiction(value); break;
+      case "contractorName": setContractorName(value); break;
+      case "companyRegisteredAddress": setCompanyRegisteredAddress(value); break;
+      case "contractDay": setContractDay(value); break;
+      case "contractMonth": setContractMonth(value); break;
+      case "contractYear": setContractYear(value); break;
+      case "contractorCnic": setContractorCnic(value); break;
+      case "contractorAddress": setContractorAddress(value); break;
+      case "projectName": setProjectName(value); break;
+      case "repositoryName": setRepositoryName(value); break;
+      case "techStack": setTechStack(value); break;
+      case "phase1Deadline": setPhase1Deadline(value); break;
+      case "commChannel": setCommChannel(value); break;
+      case "workingHours": setWorkingHours(value); break;
+    }
+
+    const activeCode = (validatedPasscode || accessParam || "").trim();
+    if (!activeCode) return;
+
+    let storedData: any = {};
+    try {
+      const existing = localStorage.getItem(`byteleap_contract_sigs_${type}_${activeCode}`);
+      if (existing) storedData = JSON.parse(existing);
+    } catch (e) {}
+
+    if (!storedData.editedFields) storedData.editedFields = {};
+    storedData.editedFields[fieldName] = value;
+
+    try {
+      localStorage.setItem(`byteleap_contract_sigs_${type}_${activeCode}`, JSON.stringify(storedData));
+    } catch (e) {}
+
+    if (activeCode && activeCode !== expectedPasscode) {
+      await supabase
+        .from("active_contracts")
+        .update({ signature_data: JSON.stringify(storedData) })
+        .eq("passcode", activeCode);
     }
   };
 
@@ -475,7 +535,7 @@ function ContractInner() {
                 className="editable-field"
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                onBlur={(e) => setClientJurisdiction(e.target.textContent || "Canada")}
+                onBlur={(e) => saveFieldToDb("clientJurisdiction", e.target.textContent || "Canada")}
                 title="Click to edit jurisdiction"
               >
                 {clientJurisdiction}
@@ -485,7 +545,7 @@ function ContractInner() {
                 className="editable-field"
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                onBlur={(e) => setContractorName(e.target.textContent || "Abraham Mehmood")}
+                onBlur={(e) => saveFieldToDb("contractorName", e.target.textContent || "Abraham Mehmood")}
                 title="Click to edit representative name"
               >
                 {contractorName === "[CONTRACTOR FULL LEGAL NAME]" ? "Abraham Mehmood" : contractorName}
@@ -495,7 +555,7 @@ function ContractInner() {
                 className="editable-field"
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                onBlur={(e) => setCompanyRegisteredAddress(e.target.textContent || "A-308, Billy's Towers, Block-20, Gulistan-e-Jauhar, Karachi, Pakistan")}
+                onBlur={(e) => saveFieldToDb("companyRegisteredAddress", e.target.textContent || "A-308, Billy's Towers, Block-20, Gulistan-e-Jauhar, Karachi, Pakistan")}
                 title="Click to edit address"
               >
                 {companyRegisteredAddress}
@@ -1019,7 +1079,7 @@ function ContractInner() {
                         className="editable-field"
                         contentEditable="true"
                         suppressContentEditableWarning={true}
-                        onBlur={(e) => setContractorName(e.target.textContent || "Abraham Mehmood")}
+                        onBlur={(e) => saveFieldToDb("contractorName", e.target.textContent || "Abraham Mehmood")}
                         title="Click to edit acceptance authority"
                       >
                         {contractorName === "[CONTRACTOR FULL LEGAL NAME]" ? "Abraham Mehmood" : contractorName}
@@ -1134,7 +1194,7 @@ function ContractInner() {
                 className="editable-field"
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                onBlur={(e) => setContractDay(e.target.textContent || "20th")}
+                onBlur={(e) => saveFieldToDb("contractDay", e.target.textContent || "20th")}
                 title="Click to edit day"
               >
                 {contractDay}
@@ -1144,7 +1204,7 @@ function ContractInner() {
                 className="editable-field"
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                onBlur={(e) => setContractMonth(e.target.textContent || "May")}
+                onBlur={(e) => saveFieldToDb("contractMonth", e.target.textContent || "May")}
                 title="Click to edit month"
               >
                 {contractMonth}
@@ -1154,7 +1214,7 @@ function ContractInner() {
                 className="editable-field"
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                onBlur={(e) => setContractYear(e.target.textContent || "2026")}
+                onBlur={(e) => saveFieldToDb("contractYear", e.target.textContent || "2026")}
                 title="Click to edit year"
               >
                 {contractYear}
@@ -1168,7 +1228,7 @@ function ContractInner() {
                 className="editable-field"
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                onBlur={(e) => setCompanyRegisteredAddress(e.target.textContent || "A-308, Billy's Towers, Block-20, Gulistan-e-Jauhar, Karachi, Pakistan")}
+                onBlur={(e) => saveFieldToDb("companyRegisteredAddress", e.target.textContent || "A-308, Billy's Towers, Block-20, Gulistan-e-Jauhar, Karachi, Pakistan")}
                 title="Click to edit company address"
               >
                 {companyRegisteredAddress}
@@ -1184,7 +1244,7 @@ function ContractInner() {
                   className="editable-field"
                   contentEditable="true"
                   suppressContentEditableWarning={true}
-                  onBlur={(e) => setContractorName(e.target.textContent || "[CONTRACTOR FULL LEGAL NAME]")}
+                  onBlur={(e) => saveFieldToDb("contractorName", e.target.textContent || "[CONTRACTOR FULL LEGAL NAME]")}
                   title="Click to edit Contractor Name"
                 >
                   {contractorName}
@@ -1195,7 +1255,7 @@ function ContractInner() {
                 className="editable-field"
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                onBlur={(e) => setContractorCnic(e.target.textContent || "___________________________")}
+                onBlur={(e) => saveFieldToDb("contractorCnic", e.target.textContent || "___________________________")}
                 title="Click to edit CNIC Number"
               >
                 {contractorCnic}
@@ -1205,7 +1265,7 @@ function ContractInner() {
                 className="editable-field"
                 contentEditable="true"
                 suppressContentEditableWarning={true}
-                onBlur={(e) => setContractorAddress(e.target.textContent || "[Insert Contractor Address]")}
+                onBlur={(e) => saveFieldToDb("contractorAddress", e.target.textContent || "[Insert Contractor Address]")}
                 title="Click to edit Contractor Address"
               >
                 {contractorAddress}
@@ -1539,7 +1599,7 @@ function ContractInner() {
                         className="editable-field"
                         contentEditable="true"
                         suppressContentEditableWarning={true}
-                        onBlur={(e) => setProjectName(e.target.textContent || "GP Analytix Platform")}
+                        onBlur={(e) => saveFieldToDb("projectName", e.target.textContent || "GP Analytix Platform")}
                         title="Click to edit project name"
                       >
                         {projectName}
@@ -1553,7 +1613,7 @@ function ContractInner() {
                         className="editable-field"
                         contentEditable="true"
                         suppressContentEditableWarning={true}
-                        onBlur={(e) => setRepositoryName(e.target.textContent || "gpx1")}
+                        onBlur={(e) => saveFieldToDb("repositoryName", e.target.textContent || "gpx1")}
                         title="Click to edit repository name"
                       >
                         {repositoryName}
@@ -1567,7 +1627,7 @@ function ContractInner() {
                         className="editable-field"
                         contentEditable="true"
                         suppressContentEditableWarning={true}
-                        onBlur={(e) => setTechStack(e.target.textContent || "MERN Stack & Python Scraper")}
+                        onBlur={(e) => saveFieldToDb("techStack", e.target.textContent || "MERN Stack & Python Scraper")}
                         title="Click to edit tech stack"
                       >
                         {techStack}
@@ -1581,7 +1641,7 @@ function ContractInner() {
                         className="editable-field"
                         contentEditable="true"
                         suppressContentEditableWarning={true}
-                        onBlur={(e) => setPhase1Deadline(e.target.textContent || "April 30, 2026")}
+                        onBlur={(e) => saveFieldToDb("phase1Deadline", e.target.textContent || "April 30, 2026")}
                         title="Click to edit deadline"
                       >
                         {phase1Deadline}
@@ -1603,7 +1663,7 @@ function ContractInner() {
                         className="editable-field"
                         contentEditable="true"
                         suppressContentEditableWarning={true}
-                        onBlur={(e) => setCommChannel(e.target.textContent || "MS Teams / WhatsApp")}
+                        onBlur={(e) => saveFieldToDb("commChannel", e.target.textContent || "MS Teams / WhatsApp")}
                         title="Click to edit channels"
                       >
                         {commChannel}
@@ -1617,7 +1677,7 @@ function ContractInner() {
                         className="editable-field"
                         contentEditable="true"
                         suppressContentEditableWarning={true}
-                        onBlur={(e) => setWorkingHours(e.target.textContent || "11am – 7pm (PKT)")}
+                        onBlur={(e) => saveFieldToDb("workingHours", e.target.textContent || "11am – 7pm (PKT)")}
                         title="Click to edit working hours"
                       >
                         {workingHours}
