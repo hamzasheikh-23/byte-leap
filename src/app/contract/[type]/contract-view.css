@@ -1,0 +1,952 @@
+/* ==========================================================================
+   Byte Leap Premium Responsive Contract & eSign Sheet Styling
+   Design System: Deep Purple (#4b2c91), Gold (#edaf2e), Glassmorphism & Micro-animations
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Raleway:wght@300;400;500;600;700;800;900&family=Alex+Brush&family=Allura&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Monsieur+La+Doulaise&family=Pacifico&family=Reenie+Beanie&family=Sacramento&display=swap');
+
+:root {
+    --primary: #4b2c91;
+    --primary-hover: #3b2075;
+    --accent: #edaf2e;
+    --accent-hover: #d99616;
+    --primary-light: rgba(75, 44, 145, 0.04);
+    --primary-med: rgba(75, 44, 145, 0.12);
+    --accent-light: rgba(237, 175, 46, 0.08);
+    --text-dark: #1e1b29;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --success: #10b981;
+    --bg-gradient: radial-gradient(circle at 80% 10%, rgba(75, 44, 145, 0.08) 0%, rgba(237, 175, 46, 0.04) 50%, #f8fafc 100%);
+    --shadow-premium: 0 20px 45px -5px rgba(75, 44, 145, 0.05), 0 10px 20px -5px rgba(0, 0, 0, 0.02);
+    --shadow-hover: 0 30px 60px -10px rgba(75, 44, 145, 0.12);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Smooth Base Styling ── */
+.contract-view-wrapper {
+    min-height: 100vh;
+    background: var(--bg-gradient);
+    color: var(--text-dark);
+    font-family: 'Raleway', sans-serif;
+    line-height: 1.8;
+    padding-bottom: 80px;
+    letter-spacing: 0.2px;
+}
+
+/* ── Interactive Blur Navigation Toolbar ── */
+.no-print-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(48, 27, 96, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: white;
+    padding: 14px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+}
+
+.toolbar-info {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.btn-print {
+    background: linear-gradient(135deg, var(--accent) 0%, #fbc02d 100%);
+    color: #1e0d3d;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(237, 175, 46, 0.25);
+}
+
+.btn-print:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(237, 175, 46, 0.45);
+    background: linear-gradient(135deg, #fbc02d 0%, #f59e0b 100%);
+}
+
+.btn-back {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.btn-back:hover {
+    background: white;
+    color: var(--primary);
+    transform: translateX(-4px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.btn-back i {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+/* ── Modern Premium Container Sheet ── */
+.resume-container {
+    margin: 110px auto 40px auto;
+    max-width: 900px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid rgba(75, 44, 145, 0.06);
+    box-shadow: var(--shadow-premium);
+    position: relative;
+    z-index: 10;
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.resume-container:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+/* ── Letterhead Style Header ── */
+.cl-letterhead {
+    padding: 40px 0 10px 0;
+    text-align: center;
+}
+
+.logo-container {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.logo-container img {
+    width: 320px;
+    height: auto;
+    max-width: 100%;
+    filter: drop-shadow(0 4px 10px rgba(75, 44, 145, 0.05));
+    transition: var(--transition);
+}
+
+.logo-container img:hover {
+    transform: scale(1.02);
+}
+
+.gold-divider {
+    width: 70%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+    margin: 20px auto 0 auto;
+    opacity: 0.8;
+}
+
+/* ── Typography & Contract Layout ── */
+.contract-title-block {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.contract-main-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.contract-subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.contract-section {
+    margin-top: 45px;
+    margin-bottom: 35px;
+}
+
+.contract-section-heading {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--primary);
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.5px;
+}
+
+.clause-item {
+    margin-bottom: 20px;
+    padding-left: 5px;
+    text-align: justify;
+    color: #2c2a38;
+}
+
+.clause-number {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    color: var(--primary);
+    margin-right: 6px;
+}
+
+.sub-clause {
+    margin-top: 12px;
+    padding-left: 35px;
+    position: relative;
+    text-align: justify;
+    color: #475569;
+}
+
+.sub-clause::before {
+    content: '✦';
+    position: absolute;
+    left: 15px;
+    top: 2px;
+    color: var(--accent);
+    font-size: 0.75rem;
+}
+
+/* ── Interactive Editable Fields (Capsules) ── */
+.editable-field {
+    border-bottom: 2px dashed var(--accent);
+    padding: 2px 8px;
+    background-color: rgba(237, 175, 46, 0.05);
+    border-radius: 4px;
+    font-weight: 700;
+    color: var(--primary);
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-block;
+    outline: none;
+    position: relative;
+}
+
+.editable-field:hover,
+.editable-field:focus {
+    background-color: rgba(237, 175, 46, 0.15);
+    border-bottom-style: solid;
+    box-shadow: 0 4px 10px rgba(237,175,46,0.1);
+}
+
+td.editable-field {
+    display: table-cell !important;
+}
+
+
+/* ── Callout Protection Boxes ── */
+.callout-box {
+    background: rgba(237, 175, 46, 0.03);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    margin: 25px 0;
+    box-shadow: inset 0 0 10px rgba(237, 175, 46, 0.02);
+}
+
+.callout-box p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #475569;
+    font-weight: 500;
+}
+
+/* ── Exquisite Structured Tables ── */
+.schedule-table,
+.financial-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+    border: 1px solid rgba(75, 44, 145, 0.08);
+}
+
+.schedule-table th,
+.schedule-table td,
+.financial-table th,
+.financial-table td {
+    padding: 16px 20px;
+    text-align: left;
+    font-size: 0.9rem;
+    border: 1px solid rgba(75, 44, 145, 0.06);
+}
+
+.schedule-table th,
+.financial-table th {
+    background: linear-gradient(135deg, rgba(75, 44, 145, 0.05) 0%, rgba(75, 44, 145, 0.02) 100%);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--primary);
+}
+
+.schedule-table th {
+    width: 32%;
+}
+
+.financial-table th {
+    text-align: center;
+}
+
+.financial-table td {
+    text-align: center;
+}
+
+.financial-table tr:hover,
+.schedule-table tr:hover {
+    background-color: rgba(75, 44, 145, 0.015);
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+/* ── Certificate-like Execution Cards ── */
+.execution-container {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.signature-block {
+    flex: 1;
+    min-width: 340px;
+    max-width: 420px;
+    padding: 28px;
+    border: 1px solid rgba(75, 44, 145, 0.08);
+    border-radius: 16px;
+    background: #fafbfc;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+}
+
+.signature-block:hover {
+    box-shadow: 0 12px 30px rgba(75, 44, 145, 0.05);
+    border-color: rgba(75, 44, 145, 0.18);
+    transform: translateY(-2px);
+}
+
+.signature-block h4 {
+    font-family: 'Outfit', sans-serif;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--primary-med);
+    padding-bottom: 10px;
+    color: var(--primary);
+    letter-spacing: 0.8px;
+}
+
+.sig-line-item {
+    margin-bottom: 14px;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sig-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    min-width: 90px;
+    color: var(--primary);
+}
+
+.sig-placeholder {
+    flex: 1;
+    border-bottom: 1.5px dashed var(--accent);
+    min-height: 1.5rem;
+    color: var(--primary);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+/* ── Cryptographic Verified Badges ── */
+.esign-badge {
+    font-size: 0.65rem;
+    color: var(--success);
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    background-color: rgba(16, 185, 129, 0.06);
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    width: fit-content;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(16, 185, 129, 0.05);
+}
+
+.esign-badge i {
+    font-size: 0.8rem;
+}
+
+.esign-btn {
+    background-color: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+    white-space: nowrap;
+    align-self: center;
+    box-shadow: 0 4px 10px rgba(75, 44, 145, 0.15);
+}
+
+.esign-btn:hover {
+    background-color: var(--accent);
+    color: #1e0d3d;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(237, 175, 46, 0.3);
+}
+
+.page-break {
+    page-break-before: always;
+    margin-top: 60px;
+}
+
+/* ── Symmetrical Floating Letterhead Footer ── */
+.letterhead-footer {
+    padding: 60px 80px 40px 80px;
+    text-align: center;
+    background: transparent;
+    font-family: 'Outfit', sans-serif;
+}
+
+.footer-divider {
+    width: 100%;
+    height: 1.5px;
+    background: rgba(75, 44, 145, 0.08);
+    margin: 0 auto 25px auto;
+}
+
+.footer-meta-line {
+    font-size: 0.72rem;
+    color: var(--primary);
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    opacity: 0.95;
+}
+
+.footer-meta-line .footer-bullet {
+    color: var(--accent);
+    font-size: 0.6rem;
+}
+
+.footer-copyright-line {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.footer-copyright-line a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer-copyright-line a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.footer-copyright-line a i {
+    color: var(--accent);
+    font-size: 0.72rem;
+}
+
+/* ── Premium Frosted eSign Modal Panel ── */
+.esign-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 10, 30, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.esign-modal-card {
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 35px 80px rgba(15, 10, 30, 0.25);
+    width: 560px;
+    max-width: 92%;
+    padding: 35px;
+    border: 1px solid rgba(75, 44, 145, 0.08);
+}
+
+.esign-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 18px;
+    margin-bottom: 22px;
+}
+
+.esign-modal-header h3 {
+    font-family: 'Outfit', sans-serif;
+    color: var(--primary);
+    font-size: 1.4rem;
+    font-weight: 900;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.esign-modal-close {
+    background: rgba(0, 0, 0, 0.03);
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.esign-modal-close:hover {
+    background: rgba(75, 44, 145, 0.08);
+    color: var(--primary);
+}
+
+.sig-canvas-container {
+    background: #f8fafc;
+    border: 2px dashed rgba(75, 44, 145, 0.15);
+    border-radius: 16px;
+    cursor: crosshair;
+    overflow: hidden;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    touch-action: none;
+}
+
+.sig-canvas-container:hover {
+    border-color: var(--primary);
+    background: #ffffff;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.01);
+}
+
+#sigCanvas {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.esign-primary-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, #301b60 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(75, 44, 145, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.esign-primary-btn:hover {
+    background: linear-gradient(135deg, var(--accent) 0%, #fbc02d 100%);
+    color: #1e0d3d;
+    box-shadow: 0 6px 20px rgba(237, 175, 46, 0.35);
+    transform: translateY(-1px);
+}
+
+.esign-secondary-btn {
+    background-color: transparent;
+    color: #64748b;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    padding: 11px 24px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.esign-secondary-btn:hover {
+    background-color: #f1f5f9;
+    color: var(--text-dark);
+    border-color: #cbd5e1;
+}
+
+.drawn-sig-img {
+    max-height: 48px;
+    max-width: 100%;
+    display: block;
+    mix-blend-mode: multiply;
+}
+
+/* ── Advanced Mobile Responsiveness Overrides ── */
+@media (max-width: 1024px) {
+    .no-print-toolbar {
+        padding: 12px 20px;
+    }
+
+    .toolbar-info {
+        display: none !important;
+    }
+
+    .resume-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 70px 0 0 0 !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    main.cover-letter-body {
+        padding: 30px 20px 40px 20px !important;
+    }
+
+    .logo-container {
+        height: 60px;
+        overflow: hidden;
+    }
+
+    .logo-container img {
+        width: 240px;
+        height: auto;
+    }
+
+    .gold-divider {
+        width: 90%;
+    }
+
+    .contract-main-title {
+        font-size: 1.5rem !important;
+    }
+
+    .contract-subtitle {
+        font-size: 0.9rem !important;
+    }
+
+    .contract-section-heading {
+        font-size: 1.1rem;
+    }
+
+    .sub-clause {
+        padding-left: 20px;
+    }
+
+    .schedule-table,
+    .financial-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 20px 0;
+    }
+
+    .schedule-table th,
+    .schedule-table td,
+    .financial-table th,
+    .financial-table td {
+        padding: 12px 14px;
+        font-size: 0.82rem;
+    }
+
+    .execution-container {
+        gap: 20px;
+        margin-top: 35px;
+    }
+
+    .signature-block {
+        min-width: 100% !important;
+        max-width: 100% !important;
+        padding: 20px !important;
+    }
+
+    .sig-line-item {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .esign-badge {
+        margin-left: 0 !important;
+        font-size: 0.6rem;
+    }
+
+    .esign-modal-card {
+        padding: 24px;
+        width: 94%;
+    }
+}
+
+/* ── Print Media Perfect Layout Formatting ── */
+@media print {
+    .no-print-toolbar,
+    .esign-btn,
+    .esign-modal-backdrop {
+        display: none !important;
+    }
+
+    body, .contract-view-wrapper {
+        background: white !important;
+        color: #000000 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .resume-container {
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        width: auto !important;
+        max-width: none !important;
+    }
+
+    .schedule-table th,
+    .financial-table th {
+        background: rgba(75, 44, 145, 0.05) !important;
+        color: #4b2c91 !important;
+        border: 1px solid rgba(75, 44, 145, 0.12) !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .signature-block {
+        border-color: #cccccc !important;
+        background: white !important;
+    }
+
+    .editable-field {
+        border-bottom: none !important;
+        background-color: transparent !important;
+        padding: 0 !important;
+        color: #1e1b29 !important;
+    }
+
+    .sig-placeholder {
+        border-bottom: none !important;
+        background-color: transparent !important;
+        color: #1e1b29 !important;
+        padding: 0 !important;
+    }
+
+    @page {
+        size: A4;
+        margin: 18mm 15mm 18mm 15mm;
+    }
+}
+
+/* ── Dynamic Milestones Controls ── */
+.milestone-row-hover {
+    position: relative;
+}
+
+.delete-milestone-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ef4444;
+    color: white;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+.delete-milestone-btn:hover {
+    background: #dc2626;
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 6px 14px rgba(239, 68, 68, 0.5);
+}
+
+.milestone-row-hover:hover .delete-milestone-btn {
+    display: flex;
+}
+
+/* Security Locked Screen Overlay */
+.security-overlay-viewport {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, #171131 0%, #090518 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+    color: white;
+}
+
+.security-glass-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 35px 80px rgba(0, 0, 0, 0.45);
+    max-width: 440px;
+    width: 100%;
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.security-glass-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.03) 50%, transparent 55%);
+    pointer-events: none;
+    animation: shine 6s infinite linear;
+}
+
+@keyframes shine {
+    0% { transform: translate(-30%, -30%) rotate(0deg); }
+    100% { transform: translate(30%, 30%) rotate(360deg); }
+}
+
+.security-shield-badge {
+    width: 68px;
+    height: 68px;
+    background: rgba(237, 175, 46, 0.1);
+    border: 2.5px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px auto;
+    color: var(--accent);
+    font-size: 1.8rem;
+    box-shadow: 0 0 25px rgba(237, 175, 46, 0.15);
+}
+
+.security-glass-card h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.security-glass-card p {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 25px;
+}
+
+.security-glass-card.shake {
+    animation: shakeAnim 0.4s ease-in-out;
+}
+
+@keyframes shakeAnim {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+
