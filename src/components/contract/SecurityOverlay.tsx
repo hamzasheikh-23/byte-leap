@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
 interface SecurityOverlayProps {
-  onUnlock: (passcode: string) => boolean;
+  onUnlock: (passcode: string) => boolean | Promise<boolean>;
 }
 
 export default function SecurityOverlay({ onUnlock }: SecurityOverlayProps) {
   const [passcodeInput, setPasscodeInput] = useState("");
   const [passcodeError, setPasscodeError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const success = onUnlock(passcodeInput);
+    const success = await onUnlock(passcodeInput);
     if (!success) {
       setPasscodeError(true);
       setTimeout(() => setPasscodeError(false), 500); // Shakes card

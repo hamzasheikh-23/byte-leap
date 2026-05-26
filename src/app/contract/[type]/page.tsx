@@ -104,10 +104,12 @@ function ContractInner() {
   // Fetch active contracts dynamically from Supabase for validation on mount
   useEffect(() => {
     async function fetchContractsFromDb() {
+      if (!accessParam) return;
       try {
         const { data, error } = await supabase
           .from("active_contracts")
-          .select("*");
+          .select("*")
+          .eq("passcode", accessParam.trim());
         if (data && data.length > 0) {
           setActiveContractsFromDb(data);
         }
@@ -116,7 +118,7 @@ function ContractInner() {
       }
     }
     fetchContractsFromDb();
-  }, []);
+  }, [accessParam]);
 
   // Check against multiple possible passcodes (default + dynamic DB records + localStorage fallback)
   const verifyPasscode = (input: string): boolean | "expired" => {
@@ -295,16 +297,43 @@ function ContractInner() {
     }
   }, [accessParam, expectedPasscode, activeContractsFromDb]);
 
-  const handleUnlock = (passcode: string): boolean => {
-    const result = verifyPasscode(passcode);
+  const handleUnlock = async (passcode: string): Promise<boolean> => {
+    const cleanPass = passcode.trim();
+    let result = verifyPasscode(cleanPass);
+
+    // If passcode isn't found locally, fetch it from Supabase dynamically
+    if (result === false && cleanPass !== expectedPasscode) {
+      try {
+        const { data } = await supabase
+          .from("active_contracts")
+          .select("*")
+          .eq("passcode", cleanPass);
+        if (data && data.length > 0) {
+          setActiveContractsFromDb((prev) => {
+            const exists = prev.some(c => c.passcode === cleanPass);
+            return exists ? prev : [...prev, ...data];
+          });
+          const match = data[0];
+          if (match.expires_at && match.expires_at !== "never") {
+            if (new Date() > new Date(match.expires_at)) {
+              result = "expired";
+            }
+          } else {
+            result = true;
+          }
+        }
+      } catch (err) {
+        console.warn("Failed to verify passcode against Supabase dynamically:", err);
+      }
+    }
+
     if (result === "expired") {
       setIsExpired(true);
       return false;
     } else if (result === true) {
       setIsUnlocked(true);
-      const code = passcode.trim();
-      setValidatedPasscode(code);
-      loadSavedSignatures(code);
+      setValidatedPasscode(cleanPass);
+      loadSavedSignatures(cleanPass);
       return true;
     }
     return false;
